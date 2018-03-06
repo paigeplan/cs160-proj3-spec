@@ -1,8 +1,9 @@
-Tip: Try to get your firebase console set up early. 
+# Creating a new Android Project with the Firebase Realtime Database
+This guide goes over setting up a new Android project with the Firebase Realtime Database, and how to read and write to it. To set up a Firebase console, you’ll need a Google account. You can use any google account for this.
 
-
-Before you start:
-- To set up a Firebase console, you’ll need a Google account. You can use any google account for this.
+### References 
+- https://firebase.google.com/docs/android/setup
+- https://firebase.google.com/docs/database/android/read-and-write
 
 ### Getting started 
 If you haven’t already, create a new Android Studio project as you would normally. 
@@ -136,5 +137,4 @@ protected void onCreate(Bundle savedInstanceState){
 4. After changing the value of one of your references, you should see your updated value in your the new `dataSnapshot`
 
 ![](img/breakpoint.png)
-
 
