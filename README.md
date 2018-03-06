@@ -138,3 +138,4 @@ protected void onCreate(Bundle savedInstanceState){
 
 ![](img/breakpoint.png)
 
+TODO: better way to parse with a Java Object
