@@ -12,8 +12,8 @@ If you haven’t already, create a new Android Studio project as you would norma
 
 1. Open the Firebase Console from the Tools menu: **Tools > Firebase** You should see a list of Firebase features. For this assignment, we’ll just be using the Realtime Database to store data shared among users. (extra credit for authentication?).
 2. Select **Realtime Database** from the list, and then click **Save and Retrieve Data**
-3. Select **Connect Your App to Firebase**
 ![](img/connect.png)
+3. Select **Connect Your App to Firebase**
 4. If prompted, sign in to the account you want to use with Firebase, select **Create a new Firebase Project** and then **Connect to Firebase**.
 
 After this step, you should see a project with the name your provided here:  https://console.firebase.google.com/
@@ -62,8 +62,48 @@ In the firebase database, data is written to **references** using the `setValue`
 
 ### Part 5: Read from your Database
 
+> See [Listen for value events](https://firebase.google.com/docs/database/android/read-and-write) for an example of a Post listener.
+
+#### Terms
+- **ValueEventListener** - To read data from your Firebase Database, you'll want to use *ValueEventListeners*. Like *OnClickListeners*, *ValueEventListeners* continuously "listen" for a certain event. While *OnClickListeners* recieve button click events (with `onClick` as the callback), *ValueEventListeners* receive events whenever the data in your database changes (with `onDataChange()` as the callback).
+
+This is perfect for a message based app - whenever someone posts a message, all users should re-read from the database, so that they are all up to date.
 
 
+##### Simple Example
+For this example, I'll use this Firebase Database. Add a data tree to your database using Android or using the online console.
+
+     {
+       "Dogs" : {
+         "Molly" : {
+           "age" : 13,
+           "toy" : "lemon"
+         },
+         "Puff" : {
+           "age" : 8,
+           "toy" : "chess set"
+         }
+       }
+     }
+
+     
+1. In MainActivity, add the following code:
+
+          ValueEventListener myDataListener = new ValueEventListener() {
+              @Override
+              public void onDataChange(DataSnapshot dataSnapshot) {
+                  // TODO: do something with data
+              }
+
+              @Override
+              public void onCancelled(DatabaseError databaseError) {
+                  //
+               };
+
+               mPostReference.addValueEventListener(postListener);
+
+
+    
 
 
 You can follow the instructions in Android Studio or online here: https://firebase.google.com/docs/database/android/start/
