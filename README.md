@@ -66,6 +66,7 @@ In the firebase database, data is written to **references** using the `setValue`
 
 #### Terms
 - **ValueEventListener** - To read data from your Firebase Database, you'll want to use *ValueEventListeners*. Like *OnClickListeners*, *ValueEventListeners* continuously "listen" for a certain event. While *OnClickListeners* recieve button click events (with `onClick` as the callback), *ValueEventListeners* receive events whenever the data in your database changes (with `onDataChange()` as the callback).
+- **DataSnapshot** - contains data that was read from a database. You can use `child()`to traverse the snapshot and `val()` to unwrap the data. 
 
 This is perfect for a message based app - whenever someone posts a message, all users should re-read from the database, so that they are all up to date.
 
@@ -89,21 +90,40 @@ For this example, I'll use this Firebase Database. Add a data tree to your datab
      
 1. In MainActivity, add the following code:
 
-          ValueEventListener myDataListener = new ValueEventListener() {
-              @Override
-              public void onDataChange(DataSnapshot dataSnapshot) {
-                  // TODO: do something with data
-              }
+          @Override
+          protected void onCreate(Bundle savedInstanceState){
+             super.onCreate(savedInstanceState);
 
-              @Override
-              public void onCancelled(DatabaseError databaseError) {
-                  //
-               };
+             // get the reference you want to watch 
+             FirebaseDatabase db = FirebaseDatabase.getInstance();
+             DatabaseReference dogsRef = db.getReference("Dogs");
+             DatabaseReference someRef = dogsRef.child("Molly");
 
-               mPostReference.addValueEventListener(postListener);
+             // create a new value event listener
+             ValueEventListener myDataListener = new ValueEventListener() {
+                 @Override
+                 public void onDataChange(DataSnapshot dataSnapshot) {
+                     // Set a breakpoint in this method and run in debug mode!!
+                     // this will be called each time `someRef` or one of its children is modified
+                     HashMap<String, String> mollyHashMap = (HashMap<String, String>) dataSnapshot.getValue();
+                 }
+
+                 @Override
+                 public void onCancelled(DatabaseError databaseError) {
+                     Log.d("0", "cancelled");
+                 }
+             };
+
+             // try changing `someRef` here
+             someRef.addValueEventListener(myDataListener);
+          }
+
+3. Run your app in debug mode, with a breakpoint in `onDataChange`. Change the value of `someRef` via your online console (in this code, that means modifying one of the "Molly" child nodes):
+
+![](img/editing.png)
+
+4. After changing the value of one of your references, you should see your updated value in your the new `dataSnapshot`
+
+![](img/breakpoint.png)
 
 
-    
-
-
-You can follow the instructions in Android Studio or online here: https://firebase.google.com/docs/database/android/start/
