@@ -32,30 +32,29 @@ Firebase allows you to set permissions for who can read and write to your databa
 ![](img/database.png)
 3. Open the **Rules** tab, and set both read and write permissions to public:
       
-      ```json
-       {
-          "rules": {
-            ".read": true,
-            ".write": true
-          }
-        }
-        ```
+```json
+{
+    "rules": {
+      ".read": true,
+      ".write": true
+    }
+}
+```
 
 ### Part 4: Write to your Database
 In the firebase database, data is written to **references** using the `setValue` function. Here's an example of writing data to your database. 
      
-     ```java
-     // entry point to access your Firebase database
-     FirebaseDatabase database = FirebaseDatabase.getInstance();
+```java
+// entry point to access your Firebase database
+FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-     DatabaseReference dogsRef = database.getReference("Dogs");  // ~/Dogs
+DatabaseReference dogsRef = database.getReference("Dogs");  // ~/Dogs
 
-     // use the `child` method to nest data
-     DatabaseReference molly = dogsRef.child("Molly");           // ~/Dogs/Molly/
-     molly.child("age").setValue(13);                            // ~/Dogs/Molly/age = 13
-     molly.child("toy").setValue("lemon");                       // ~/Dogs/Molly/toy = lemon
-     ```
-
+// use the `child` method to nest data
+DatabaseReference molly = dogsRef.child("Molly");           // ~/Dogs/Molly/
+molly.child("age").setValue(13);                            // ~/Dogs/Molly/age = 13
+molly.child("toy").setValue("lemon");                       // ~/Dogs/Molly/toy = lemon
+```
 
 1. To test that your database is working, try writing to your database in your `onCreate` method.
 2. Run your app, and check that your database contains the data you provided. Below is the output of the code posted above, with one extra dog.
@@ -78,49 +77,51 @@ This is perfect for a message based app - whenever someone posts a message, all 
 ##### Simple Example
 For this example, I'll use this Firebase Database. Add a data tree to your database using Android or using the online console.
 
-     ```json
-     {
-       "Dogs" : {
-         "Molly" : {
-           "age" : 13,
-           "toy" : "lemon"
-         },
-         "Puff" : {
-           "age" : 8,
-           "toy" : "chess set"
-         }
-       }
-     }
+```json
+{
+ "Dogs" : {
+   "Molly" : {
+     "age" : 13,
+     "toy" : "lemon"
+   },
+   "Puff" : {
+     "age" : 8,
+     "toy" : "chess set"
+   }
+ }
+}
+```
 
      
 1. In MainActivity, add the following code:
      
-     ```java
-     @Override
-     protected void onCreate(Bundle savedInstanceState){
-          super.onCreate(savedInstanceState);
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState){
+    super.onCreate(savedInstanceState);
 
-          // get the reference you want to watch 
-          FirebaseDatabase db = FirebaseDatabase.getInstance();
-          DatabaseReference dogsRef = db.getReference("Dogs");
-          DatabaseReference someRef = dogsRef.child("Molly");
+    // get the reference you want to watch 
+    FirebaseDatabase db = FirebaseDatabase.getInstance();
+    DatabaseReference dogsRef = db.getReference("Dogs");
+    DatabaseReference someRef = dogsRef.child("Molly");
 
-          // create a new value event listener
-          ValueEventListener myDataListener = new ValueEventListener() {
-               @Override
-               public void onDataChange(DataSnapshot dataSnapshot) {
-                    // Set a breakpoint in this method and run in debug mode!!
-                    // this will be called each time `someRef` or one of its children is modified
-                    HashMap<String, String> mollyHashMap = (HashMap<String, String>) dataSnapshot.getValue();
-               }
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
-                    Log.d("0", "cancelled");
-               }
-          };
-          // try changing `someRef` here
-          someRef.addValueEventListener(myDataListener);
-     }
+    // create a new value event listener
+    ValueEventListener myDataListener = new ValueEventListener() {
+         @Override
+         public void onDataChange(DataSnapshot dataSnapshot) {
+              // Set a breakpoint in this method and run in debug mode!!
+              // this will be called each time `someRef` or one of its children is modified
+              HashMap<String, String> mollyHashMap = (HashMap<String, String>) dataSnapshot.getValue();
+         }
+         @Override
+         public void onCancelled(DatabaseError databaseError) {
+              Log.d("0", "cancelled");
+         }
+    };
+    // try changing `someRef` here
+    someRef.addValueEventListener(myDataListener);
+}
+```
 
 3. Run your app in debug mode, with a breakpoint in `onDataChange`. Change the value of `someRef` via your online console (in this code, that means modifying one of the "Molly" child nodes):
 
