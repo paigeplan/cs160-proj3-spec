@@ -19,17 +19,20 @@ If you haven’t already, create a new Android Studio project as you would norma
 After this step, you should see a project with the name your provided here:  https://console.firebase.google.com/
 
 ### Part 2: Add the Realtime Database to your App
-5. Back in Android Studio, select **Add the Realtime Database to your app**. 
+1. Back in Android Studio, select **Add the Realtime Database to your app**. 
 
 > You may get a warning about your google-services plugin version here if you used a Map template. If so, open your app/build.gradle file. Make sure all the plugins listed under "dependencies" have a the same version. This version should be less than or equal to your device's Google Play Services Version.
 
 You should not see any errors after building your app at this point. 
 
 ### Part 3: Configure Firebase Database Rules
-Firebase allows you to set permissions for who can read and write to your database. By default, this is set to private (only authenticated users can read and write to the database). Since there is no authentication required in this app so far, you'll need to set read and write to public.
+Firebase allows you to set permissions for who can read and write to your database. By default, this is set to private (only authenticated users can read and write to the database). Set read and write to public, so that you are able to read and write your app without Authentication implemented (TODO: extra credit??).
+
 1. Open up your project via the online Firebase Console: https://console.firebase.google.com/
 2. Select **Database** > **RealtimeDatabase** 
+
 ![](img/database.png)
+
 3. Open the **Rules** tab, and set both read and write permissions to public:
       
 ```json
@@ -61,15 +64,18 @@ molly.child("toy").setValue("lemon");                       // ~/Dogs/Molly/toy 
 
 ![](img/write_example1.png)
 
-3. You aren't just limited to strings and ints! Check out other writeable types here: https://firebase.google.com/docs/database/admin/save-data. Writing custom Java objects to your database is a great way to cut down on the amount of code you need to write. 
+3. You aren't just limited to strings and ints! Check out other writeable types here: https://firebase.google.com/docs/database/admin/save-data.
 
 ### Part 5: Read from your Database
 
 > See [Listen for value events](https://firebase.google.com/docs/database/android/read-and-write) for an example of a Post listener.
 
-#### Terms
-- **ValueEventListener** - To read data from your Firebase Database, you'll want to use *ValueEventListeners*. Like *OnClickListeners*, *ValueEventListeners* continuously "listen" for a certain event. While *OnClickListeners* recieve button click events (with `onClick` as the callback), *ValueEventListeners* receive events whenever the data in your database changes (with `onDataChange()` as the callback).
-- **DataSnapshot** - contains data that was read from a database. You can use `child()`to traverse the snapshot and `val()` to unwrap the data. 
+#### ValueEventListener
+To read data from your Firebase Database, you'll want to use *ValueEventListeners*. Like *OnClickListeners*, *ValueEventListeners* continuously "listen" for a certain event. While *OnClickListeners* recieve button click events (with `onClick` as the callback), *ValueEventListeners* receive events whenever the data in your database changes (with `onDataChange()` as the callback).
+
+#### onDataChange()
+`onDataChange(DataSnapshot: dataSnapshot)` - called whenever the ValueEventListener is attached to a reference (when `addValueEventListener`is called), or whenever the data of the reference or one of its children changes.
+- `onDataChange` provides a **DataSnapshot**, which holds the data just read from your database. You can use `child()`to traverse the snapshot and `getValue()` to unwrap the data. 
 
 This is perfect for a message based app - whenever someone posts a message, all users should re-read from the database, so that they are all up to date.
 
@@ -107,7 +113,7 @@ protected void onCreate(Bundle savedInstanceState){
 
     // create a new value event listener
     ValueEventListener myDataListener = new ValueEventListener() {
-         @Override
+         @Override(
          public void onDataChange(DataSnapshot dataSnapshot) {
               // Set a breakpoint in this method and run in debug mode!!
               // this will be called each time `someRef` or one of its children is modified
