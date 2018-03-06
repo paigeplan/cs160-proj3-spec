@@ -1,3 +1,13 @@
+## Google Place API
+https://developers.google.com/places/android-api/signup
+
+## Google Maps API
+
+https://stackoverflow.com/questions/47427661/google-maps-android-api-google-maps-android-api-v2-only-supports-devices-with-o
+
+
+
+
 idea just give them a model for storing messages
 ## Creating a new Android Project with the Firebase Realtime Database
 This guide goes over setting up a new Android project with the Firebase Realtime Database, and how to read and write to it. To set up a Firebase console, you’ll need a Google account. You can use any google account for this.
