@@ -39,20 +39,22 @@ Firebase allows you to set permissions for who can read and write to your databa
             ".write": true
           }
         }
+        ```
 
 ### Part 4: Write to your Database
 In the firebase database, data is written to **references** using the `setValue` function. Here's an example of writing data to your database. 
      
-    ```java
-    // entry point to access your Firebase database
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+     ```java
+     // entry point to access your Firebase database
+     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    DatabaseReference dogsRef = database.getReference("Dogs");  // ~/Dogs
-    
-    // use the `child` method to nest data
-    DatabaseReference molly = dogsRef.child("Molly");           // ~/Dogs/Molly/
-    molly.child("age").setValue(13);                            // ~/Dogs/Molly/age = 13
-    molly.child("toy").setValue("lemon");                       // ~/Dogs/Molly/toy = lemon
+     DatabaseReference dogsRef = database.getReference("Dogs");  // ~/Dogs
+
+     // use the `child` method to nest data
+     DatabaseReference molly = dogsRef.child("Molly");           // ~/Dogs/Molly/
+     molly.child("age").setValue(13);                            // ~/Dogs/Molly/age = 13
+     molly.child("toy").setValue("lemon");                       // ~/Dogs/Molly/toy = lemon
+     ```
 
 
 1. To test that your database is working, try writing to your database in your `onCreate` method.
@@ -105,19 +107,17 @@ For this example, I'll use this Firebase Database. Add a data tree to your datab
 
           // create a new value event listener
           ValueEventListener myDataListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Set a breakpoint in this method and run in debug mode!!
-                // this will be called each time `someRef` or one of its children is modified
-                HashMap<String, String> mollyHashMap = (HashMap<String, String>) dataSnapshot.getValue();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("0", "cancelled");
-            }
+               @Override
+               public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Set a breakpoint in this method and run in debug mode!!
+                    // this will be called each time `someRef` or one of its children is modified
+                    HashMap<String, String> mollyHashMap = (HashMap<String, String>) dataSnapshot.getValue();
+               }
+               @Override
+               public void onCancelled(DatabaseError databaseError) {
+                    Log.d("0", "cancelled");
+               }
           };
-
           // try changing `someRef` here
           someRef.addValueEventListener(myDataListener);
      }
