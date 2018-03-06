@@ -1,3 +1,4 @@
+idea just give them a model for storing messages
 ## Creating a new Android Project with the Firebase Realtime Database
 This guide goes over setting up a new Android project with the Firebase Realtime Database, and how to read and write to it. To set up a Firebase console, you’ll need a Google account. You can use any google account for this.
 
