@@ -81,7 +81,7 @@ To read data from your Firebase Database, you'll want to use *ValueEventListener
 This is perfect for a message based app - whenever someone posts a message, all users should re-read from the database, so that they are all up to date.
 
 
-### Example
+### Reading data example
 For this example, I'll use this Firebase Database. Add a data tree to your database using Android or using the online console.
 
 ```json
