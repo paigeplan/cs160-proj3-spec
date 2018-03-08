@@ -1,3 +1,8 @@
+### Google maps API 
+### getting users location
+example code: https://github.com/googlemaps/android-samples/blob/master/tutorials/CurrentPlaceDetailsOnMap/app/src/main/java/com/example/currentplacedetailsonmap/MapsActivityCurrentPlace.java
+
+
 ### Google Maps API
 #### Displaying Map and locating current position
 Suggested guide: https://blogs.perficient.com/delivery/blog/2017/06/30/use-google-map-in-android/
