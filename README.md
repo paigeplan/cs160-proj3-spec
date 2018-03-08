@@ -1,3 +1,21 @@
+### Google Maps API
+#### Displaying Map and locating current position
+Suggested guide: https://blogs.perficient.com/delivery/blog/2017/06/30/use-google-map-in-android/
+
+You can use the following code to zoom to your location:
+
+```java
+/// ask user to allow the app to get location
+if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
+      return;
+}
+
+// allow setting current location and adds button to zoom to location
+mMap.setMyLocationEnabled(true);
+mMap.getUiSettings().setMyLocationButtonEnabled(true);
+```
 
 >E/Google Maps Android API: Google Maps Android API v2 only supports devices with OpenGL ES 2.0 and above
 
