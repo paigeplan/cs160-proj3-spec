@@ -20,8 +20,10 @@ mMap.getUiSettings().setMyLocationButtonEnabled(true);
 >E/Google Maps Android API: Google Maps Android API v2 only supports devices with OpenGL ES 2.0 and above
 
 
-## Google Place API
-https://developers.google.com/places/android-api/signup
+## Google Places API
+Get key: https://developers.google.com/places/android-api/signup
+Startup guide: https://developers.google.com/places/android-api/start#api-key
+
 
 ## Google Maps API
 
